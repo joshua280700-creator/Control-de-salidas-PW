@@ -14,6 +14,8 @@
             --bg-color: #f7fafc;
             --text-main: #2d3748;
             --text-light: #718096;
+            --success: #38a169;
+            --error: #e53e3e;
         }
 
         body { font-family: 'Segoe UI', system-ui, sans-serif; margin: 0; background: var(--bg-color); color: var(--text-main); padding-bottom: 30px; }
@@ -30,19 +32,37 @@
         .spinner { border: 4px solid #edf2f7; border-top: 4px solid var(--accent); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 15px auto; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* Dashboard de Contadores */
+        /* Dashboard de Contadores Globales */
         .dashboard { display: flex; justify-content: space-between; background: #edf2f7; padding: 15px; border-radius: 8px; margin-bottom: 15px; text-align: center; }
         .stat-box { flex: 1; border-right: 1px solid #cbd5e0; }
         .stat-box:last-child { border-right: none; }
         .stat-title { font-size: 11px; color: var(--text-light); text-transform: uppercase; font-weight: bold; }
         .stat-number { font-size: 24px; font-weight: bold; color: var(--primary); margin-top: 5px; }
-        .stat-faltante { color: #e53e3e; }
+        .stat-faltante { color: var(--error); }
+
+        /* Menú Desplegable por Muelle */
+        .detalle-muelles {
+            background: #edf2f7;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            font-weight: bold;
+            color: var(--primary);
+            cursor: pointer;
+            text-align: left;
+            border: 1px solid #cbd5e0;
+        }
+        .detalle-muelles summary { outline: none; list-style: none; }
+        .detalle-muelles summary::-webkit-details-marker { display: none; }
+        .table-scroll { max-height: 220px; overflow-y: auto; margin-top: 10px; }
+        .row-completo { opacity: 0.5; background-color: #f0fff4 !important; } /* Pinta tenue si el muelle ya acabó */
 
         /* Escáner y Alertas Visuales */
         #reader { width: 100%; border-radius: 12px; overflow: hidden; border: 4px solid transparent; transition: all 0.2s ease; background-color: #000; }
         .reader-warning { border-color: #dd6b20 !important; box-shadow: 0 0 15px rgba(221, 107, 32, 0.5); }
-        .reader-error { border-color: #e53e3e !important; box-shadow: 0 0 15px rgba(229, 62, 62, 0.5); }
-        .reader-success { border-color: #38a169 !important; box-shadow: 0 0 15px rgba(56, 161, 105, 0.4); }
+        .reader-error { border-color: var(--error) !important; box-shadow: 0 0 15px rgba(229, 62, 62, 0.5); }
+        .reader-success { border-color: var(--success) !important; box-shadow: 0 0 15px rgba(56, 161, 105, 0.4); }
 
         /* Botones y Entradas Manuales */
         .btn-lente {
@@ -59,43 +79,22 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.15);
         }
         
-        .manual-input-container {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-            align-items: center;
-        }
-        .manual-input {
-            flex: 1;
-            padding: 12px;
-            border: 1px solid #cbd5e0;
-            border-radius: 8px;
-            font-size: 16px;
-            outline: none;
-        }
+        .manual-input-container { display: flex; gap: 10px; margin-top: 15px; align-items: center; }
+        .manual-input { flex: 1; padding: 12px; border: 1px solid #cbd5e0; border-radius: 8px; font-size: 16px; outline: none; }
         .manual-input:focus { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(49, 130, 206, 0.2); }
-        .btn-manual {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 14px;
-        }
+        .btn-manual { background: var(--primary); color: white; border: none; padding: 12px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 14px; }
 
         #scannedInfo { margin-top: 15px; padding: 15px; border-radius: 8px; font-weight: 600; text-align: center; font-size: 14px; background: #edf2f7; transition: all 0.3s ease; word-wrap: break-word; }
         .info-success { background: #c6f6d5 !important; color: #22543d !important; border: 1px solid #9ae6b4; }
         .info-error { background: #fed7d7 !important; color: #822727 !important; border: 1px solid #feb2b2; }
         .info-warning { background: #feebc8 !important; color: #9c4221 !important; border: 1px solid #fbd38d; }
-        .estado-texto { font-size: 18px; margin-top: 5px; display: block; color: #2b6cb0; }
+        .estado-texto { font-size: 18px; margin-top: 5px; display: block; color: var(--secondary); }
 
-        /* Tabla de Historial */
+        /* Tabla General */
         .table-container { overflow-x: auto; text-align: left; }
-        table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 10px; }
+        table { width: 100%; border-collapse: collapse; font-size: 12px; }
         th, td { border-bottom: 1px solid #edf2f7; padding: 10px 6px; text-align: center; }
-        th { background: #f7fafc; color: var(--text-light); font-size: 10px; text-transform: uppercase; }
+        th { background: #f7fafc; color: var(--text-light); font-size: 10px; text-transform: uppercase; position: sticky; top: 0; }
         .badge { padding: 4px 8px; border-radius: 12px; font-size: 10px; font-weight: bold; }
         .badge-sync { background: #feebc8; color: #c05621; }
         .badge-ok { background: #c6f6d5; color: #22543d; }
@@ -118,6 +117,7 @@
     <div id="main-content" style="display:none;">
         <div class="card">
             <h3>Progreso Global</h3>
+            
             <div class="dashboard">
                 <div class="stat-box">
                     <div class="stat-title">Total Físico</div>
@@ -132,6 +132,24 @@
                     <div class="stat-number stat-faltante" id="countRemaining">0</div>
                 </div>
             </div>
+
+            <details class="detalle-muelles">
+                <summary>📊 Toca para ver progreso por Andén ▼</summary>
+                <div class="table-container table-scroll">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Andén</th>
+                                <th>Total</th>
+                                <th>Esc.</th>
+                                <th>Falt.</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaMuelles">
+                            </tbody>
+                    </table>
+                </div>
+            </details>
             
             <div id="reader"></div>
             <button id="btnCambiarLente" class="btn-lente">🔄 Cambiar Lente (1.0x)</button>
@@ -148,7 +166,7 @@
             <h3>Historial Local</h3>
             <div class="table-container">
                 <table id="logTable">
-                    <thead><tr><th>Guía</th><th>Estado</th><th>Muelle</th><th>Status</th></tr></thead>
+                    <thead><tr><th>Guía</th><th>Estado</th><th>Andén</th><th>Status</th></tr></thead>
                     <tbody></tbody>
                 </table>
             </div>
@@ -159,6 +177,7 @@
 <script>
     let CATALOGO = {};
     let ESCANEADOS = new Set(); 
+    let STATS_MUELLES = {}; // NUEVO: Memoria estadística por muelle
     let totalPaquetesUnicos = 0;
     let scanPausado = false; 
     
@@ -189,12 +208,52 @@
     function sonidoExito() { generarSonido(800, 0.1); setTimeout(() => generarSonido(1200, 0.15), 100); }
     function sonidoError() { generarSonido(300, 0.4, 'square'); }
 
+    // --- CÁLCULO Y RENDERIZADO DE CONTADORES ---
     function actualizarContadores() {
+        // 1. Contadores Globales
         const escaneados = ESCANEADOS.size;
         const faltantes = totalPaquetesUnicos - escaneados;
         document.getElementById('countTotal').innerText = totalPaquetesUnicos;
         document.getElementById('countScanned').innerText = escaneados;
         document.getElementById('countRemaining').innerText = faltantes >= 0 ? faltantes : 0;
+
+        // 2. Resetear los escaneados por muelle a 0 para recalcular
+        for(let m in STATS_MUELLES) {
+            STATS_MUELLES[m].escaneados = 0;
+        }
+
+        // 3. Sumar cuántos han sido escaneados en cada muelle
+        ESCANEADOS.forEach(guia => {
+            const muelleDeGuia = CATALOGO[guia]?.muelle;
+            if(muelleDeGuia && STATS_MUELLES[muelleDeGuia]) {
+                STATS_MUELLES[muelleDeGuia].escaneados++;
+            }
+        });
+
+        // 4. Renderizar (dibujar) la tablita de muelles
+        const tbodyMuelles = document.getElementById('tablaMuelles');
+        tbodyMuelles.innerHTML = ''; // Limpiamos tabla
+        
+        // Ordenamos los muelles alfabéticamente
+        const listaMuelles = Object.keys(STATS_MUELLES).sort();
+
+        listaMuelles.forEach(m => {
+            const stats = STATS_MUELLES[m];
+            const faltantesMuelle = stats.total - stats.escaneados;
+            
+            const tr = document.createElement('tr');
+            
+            // Si el muelle ya no tiene faltantes, lo opacamos para que destaquen los que faltan
+            if(faltantesMuelle === 0) { tr.className = "row-completo"; }
+
+            tr.innerHTML = `
+                <td><strong>${m}</strong></td>
+                <td>${stats.total}</td>
+                <td style="color: var(--success); font-weight: bold;">${stats.escaneados}</td>
+                <td style="color: var(--error); font-weight: bold;">${faltantesMuelle}</td>
+            `;
+            tbodyMuelles.appendChild(tr);
+        });
     }
 
     async function sincronizarConSheets() {
@@ -219,17 +278,22 @@
                 if (intento.ok) { resViajes = intento; break; }
             }
             const resMuelle = await fetch('Muelle.xlsx');
-            if(!resViajes || !resMuelle.ok) throw new Error("Excels no encontrados.");
+            if(!resViajes || !resMuelle.ok) throw new Error("Excels no encontrados en GitHub.");
 
             const dataV = await resViajes.arrayBuffer();
             const dataM = await resMuelle.arrayBuffer();
             const wbV = XLSX.read(dataV, {type: 'array'});
             const wbM = XLSX.read(dataM, {type: 'array'});
 
-            const paradas = XLSX.utils.sheet_to_json(wbV.Sheets["Paradas"]);
-            const muelles = XLSX.utils.sheet_to_json(wbM.Sheets[wbM.SheetNames[0]]);
+            // Buscador Inteligente de Pestañas
+            const nombrePestañaViajes = wbV.SheetNames.includes("Paradas") ? "Paradas" : wbV.SheetNames[0];
+            const nombrePestañaMuelle = wbM.SheetNames[0];
+
+            const paradas = XLSX.utils.sheet_to_json(wbV.Sheets[nombrePestañaViajes]);
+            const muelles = XLSX.utils.sheet_to_json(wbM.Sheets[nombrePestañaMuelle]);
 
             let guiasUnicasSet = new Set();
+            STATS_MUELLES = {}; // Inicializamos contadores locales
 
             paradas.forEach(p => {
                 let filaLimpia = {};
@@ -237,32 +301,40 @@
 
                 const guiaBruta = filaLimpia["Pedido Referencia externa"];
                 const idViaje = filaLimpia["IdViaje"];
-                
-                // NUEVO: Extraemos el Estado de la columna "Estado"
                 const estadoPaquete = filaLimpia["Estado"] || "Desconocido";
                 
                 if (guiaBruta !== undefined && guiaBruta !== null && guiaBruta !== "") {
                     let guiaStr = guiaBruta.toString().trim();
-                    guiasUnicasSet.add(guiaStr);
+                    
+                    if (!CATALOGO[guiaStr]) { // Solo procesamos si es una guía nueva
+                        guiasUnicasSet.add(guiaStr);
 
-                    if (!CATALOGO[guiaStr]) {
+                        let muelleFinal = "Sin Asignar"; // Valor por defecto
+                        let idCompleto = "Sin Ruta";
+
                         const infoMuelle = muelles.find(m => m["ID"] && m["ID"].toString().startsWith(idViaje.toString()));
                         if(infoMuelle) {
-                            let muelleFinal = infoMuelle["Muelle de salida"];
-                            const idCompleto = infoMuelle["ID"].toString();
+                            muelleFinal = infoMuelle["Muelle de salida"];
+                            idCompleto = infoMuelle["ID"].toString();
                             if(idCompleto.includes("-")) {
                                 const oleada = idCompleto.split("-")[1].trim();
                                 if(oleada !== "1") muelleFinal += oleada;
                             }
-                            
-                            // Guardamos el estado en el diccionario
-                            CATALOGO[guiaStr] = { 
-                                muelle: muelleFinal, 
-                                ruta: idCompleto, 
-                                orden: filaLimpia["Orden"] || 0,
-                                estado: estadoPaquete
-                            };
                         }
+
+                        // Guardamos en el diccionario general
+                        CATALOGO[guiaStr] = { 
+                            muelle: muelleFinal, 
+                            ruta: idCompleto, 
+                            orden: filaLimpia["Orden"] || 0,
+                            estado: estadoPaquete
+                        };
+
+                        // Registramos en el contador por Muelle
+                        if(!STATS_MUELLES[muelleFinal]) {
+                            STATS_MUELLES[muelleFinal] = { total: 0, escaneados: 0 };
+                        }
+                        STATS_MUELLES[muelleFinal].total++;
                     }
                 }
             });
@@ -358,7 +430,7 @@
         const valorManual = inputElement.value.trim();
         if(valorManual !== "") {
             procesarGuia(valorManual);
-            inputElement.value = ""; // Limpia la barra después de buscar
+            inputElement.value = ""; 
             inputElement.focus();
         }
     }
@@ -387,7 +459,6 @@
             ESCANEADOS.add(guiaEscaneada); 
             actualizarContadores();
             
-            // NUEVO: Mostramos el Estado en el panel de éxito
             infoDiv.innerHTML = `✅ ÉXITO<br>
                 <span style="font-size: 22px; color: #1a365d;">Muelle: ${item.muelle}</span><br>
                 <span class="estado-texto">Estado: <b>${item.estado}</b></span>`;
@@ -397,7 +468,7 @@
             setTimeout(() => readerDiv.className = "", 500);
             
             enviarASheets(guiaEscaneada, item);
-            pausarEscaneo(1200); // Un poco más de tiempo para que alcancen a leer el Estado
+            pausarEscaneo(1200); 
         } else {
             sonidoError();
             infoDiv.innerHTML = `❌ NO ENCONTRADA<br><span style="font-size: 14px;">La guía ${guiaEscaneada} no existe en este catálogo.</span>`;
@@ -422,7 +493,6 @@
         const table = document.getElementById('logTable').querySelector('tbody');
         const row = table.insertRow(0);
         
-        // NUEVO: Agregamos la celda del estado a la tabla
         row.innerHTML = `
             <td><strong>${guia}</strong></td>
             <td style="font-size: 10px;">${item.estado}</td>
@@ -430,7 +500,6 @@
             <td><span class="badge badge-sync">...</span></td>`;
 
         try {
-            // El backend sigue recibiendo la información (Nota: si deseas guardar el estado en Google Sheets, deberás añadir 'data.estado' en tu Apps Script)
             await fetch(WEB_APP_URL, {
                 method: "POST", mode: "no-cors",
                 body: JSON.stringify({
@@ -438,7 +507,7 @@
                     muelle: item.muelle, 
                     ruta: item.ruta, 
                     orden: item.orden,
-                    estado: item.estado // Se envía el estado por si actualizas el script
+                    estado: item.estado
                 })
             });
             row.cells[3].innerHTML = '<span class="badge badge-ok">OK</span>';
